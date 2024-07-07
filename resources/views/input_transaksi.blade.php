@@ -34,8 +34,16 @@
                 <input type="number" name="harga" id="harga" class="form-control" readonly>
             </div>
             <div class="form-group">
+                <label for="bayar" class="form-label">Bayar</label>
+                <input type="number" name="bayar" id="bayar" class="form-control" oninput="hitungKembalian()" required>
+            </div>
+            <div class="form-group">
                 <label for="total" class="form-label">Total</label>
                 <input type="number" name="total" id="total" class="form-control" readonly>
+            </div>
+            <div class="form-group">
+                <label for="kembalian" class="form-label">Kembalian</label>
+                <input type="number" name="kembalian" id="kembalian" class="form-control" readonly>
             </div>
             <div class="form-group">
                 <label for="tanggal" class="form-label">Tanggal</label>
@@ -58,17 +66,26 @@
         var harga = select.options[select.selectedIndex].getAttribute('data-harga');
 
         document.getElementById('harga').value = harga;
+        hitungNominal();
     }
-    window.onload = updateHarga;
 
     function hitungNominal() {
-        var jumlah = parseFloat(document.getElementById('jumlah').value);
-        var harga = parseFloat(document.getElementById('harga').value);
+        var jumlah = parseFloat(document.getElementById('jumlah').value) || 0;
+        var harga = parseFloat(document.getElementById('harga').value) || 0;
         var total = jumlah * harga;
-        if (total < 0) {
-            document.getElementById('total').value = '';
+        document.getElementById('total').value = total;
+        hitungKembalian(); 
+    }
+
+    function hitungKembalian() {
+        var total = parseFloat(document.getElementById('total').value) || 0;
+        var bayar = parseFloat(document.getElementById('bayar').value) || 0;
+        var kembalian = bayar - total;
+
+        if (kembalian > 0) {
+            document.getElementById('kembalian').value = kembalian;
         } else {
-            document.getElementById('total').value = total;
+            document.getElementById('kembalian').value = '';
         }
     }
 </script>

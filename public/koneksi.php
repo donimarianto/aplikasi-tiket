@@ -8,7 +8,7 @@ if($host){
 	echo "koneksi gagal.<br/>";
 }
 // isikan dengan nama database yang akan di hubungkan
-$db = mysql_select_db("malasngoding");
+$db = mysql_select_db("aplikasi_tiket");
  
 if($db){
 	echo "koneksi database berhasil.";
